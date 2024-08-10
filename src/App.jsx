@@ -1,7 +1,11 @@
+import Weather from "./components/weather";
+
 const App = () => {
   return ( 
     <>
-      <h1>Hello World</h1>
+      <section>
+        <Weather/>
+      </section>
     </>
    );
 }
