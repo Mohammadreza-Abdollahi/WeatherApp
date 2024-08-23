@@ -19,9 +19,9 @@ export const getWeatherError = (data)=>{
     }
 };
 export const getWeatherInfo = (query)=>{
-    return (dispatch)=>{
+    return async (dispatch)=>{
         dispatch(sendWeatherRequest())
-        axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&appid=ebeed95b3a89e0753c4b6b5772d28085`).then(res=>{
+        await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${query}?unitGroup=metric&key=64ATLAJADSBMM6AMMQZVBEPVF&contentType=json`).then(res=>{
             dispatch(getWeatherData(res.data))
         }).catch(err=>{
             dispatch(getWeatherError(err))

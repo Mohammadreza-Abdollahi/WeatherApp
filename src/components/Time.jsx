@@ -37,8 +37,8 @@ const Time = () => {
     return ( 
         <>
             <h3 className="text-light py-1">
-                <span className="display-6 d-block my-4">{date}</span>
-                <span className="display-6 d-block my-4">{time}</span>
+                <span className="time-text d-block mb-4">{date}</span>
+                <span className="time-text d-block">{time}</span>
             </h3>
         </>
      );
