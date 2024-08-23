@@ -1,29 +1,30 @@
-*{
-    transition: all .5s;
-}
 .default{
     width: 100%;
     height: 100vh;
     background: url('../img/default.jpg');
     background-size: cover;
+    transition: all .5s;
 }
 .cold{
     width: 100%;
     height: 100vh;
     background: url('../img/cuold.jpg');
     background-size: cover;
+    transition: all .5s;
 }
 .moderate{
     width: 100%;
     height: 100vh;
     background: url('../img/moderate.png');
     background-size: cover;
+    transition: all .5s;
 }
 .warm{
     width: 100%;
     height: 100vh;
     background: url('../img/warm.jpg');
     background-size: cover;
+    transition: all .5s;
 }
 .weather-cont{
     padding: 30px 0px;
