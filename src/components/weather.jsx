@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Time from "./Time";
 import { useDispatch, useSelector } from "react-redux";
-import { getWeatherInfo } from "../redux/weather/WeatherActions";
+import { sendWeatherRequest } from "../redux/weather/WeatherActions";
 
 const Weather = () => {
     const [back, setBack] = useState("default");
@@ -11,28 +11,28 @@ const Weather = () => {
     const { loading , data , error } = useSelector(state=>state);
     const dispatch = useDispatch()
     
-    const handleGetWeather = async(e)=>{
+    const handleGetWeather = (e)=>{
         e.preventDefault();
         if(city === ''){
             alert('نام شهر را وارد کنید...')
         }else{
-            await dispatch(getWeatherInfo(city))
+            dispatch(sendWeatherRequest(city))
             setCity("")
-            handleBackground()
         }
     }
-    const handleBackground = async ()=>{
-        if(await temp < 20){
-            setBack("cold")
-        }else if(await temp > 20 && await temp < 30){
-            setBack("moderate")
-        }else{
-            setBack("warm")
+    const handleBackground = () => {
+        if (temp !== undefined) {
+          if (temp < 20) {
+            setBack("cold");
+          } else if (temp > 20 && temp < 30) {
+            setBack("moderate");
+          } else {
+            setBack("warm");
+          }
+        } else {
+          setBack('default');
         }
-        if(await temp === undefined){
-            setBack('default')
-        }
-    }
+      };
     useEffect(()=>{
         if(!data.currentConditions){
             return
