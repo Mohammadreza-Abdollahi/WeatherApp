@@ -6,7 +6,7 @@ import { getWeatherInfo } from "../redux/weather/WeatherActions";
 const Weather = () => {
     const [back, setBack] = useState("default");
     const [city , setCity] = useState('');
-    const [temp , setTemp] = useState(0);
+    const [temp , setTemp] = useState();
 
     const { loading , data , error } = useSelector(state=>state);
     const dispatch = useDispatch()
@@ -18,25 +18,29 @@ const Weather = () => {
         }else{
             await dispatch(getWeatherInfo(city))
             setCity("")
-            await setTemp(data.currentConditions.temp)
+            handleBackground()
         }
     }
     const handleBackground = async ()=>{
         if(await temp < 20){
             setBack("cold")
-        }else if(await temp > 20 && temp < 30){
+        }else if(await temp > 20 && await temp < 30){
             setBack("moderate")
         }else{
             setBack("warm")
         }
-        if(temp === 0){
+        if(await temp === undefined){
             setBack('default')
         }
     }
-    
     useEffect(()=>{
-        handleBackground()
-    },[data])
+        if(!data.currentConditions){
+            return
+        }else{
+            setTemp(data.currentConditions.temp);
+            handleBackground()
+        }
+    },[data , temp])
     console.log(data);
     return ( 
     <>
@@ -69,7 +73,7 @@ const Weather = () => {
                                 </div>
                             </div>
                         ) : error ? (
-                            <div className="alert alert-danger">نام شهر را به درستی وارد کنید</div>
+                            <div className="alert alert-danger">نام شهر را به درستی وارد کنید <br /> {error}</div>
                         ) : (
                             <div className="text-light h4">نام شهر مورد نظر را جستجو کنید!</div>
                     )}
